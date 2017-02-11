@@ -13,7 +13,7 @@ public class MarkSheetBuilder {
 		List<Student> students = new ArrayList<>();
 		List<List<String>> studentDetails = Utils.getStudentDetails(filename);
 
-		for (int i = 2; i < studentDetails.size() - 1; i++) {
+		for (int i = 1; i < studentDetails.size(); i++) {
 			Student student = new Student();
 			student.setRollNo(studentDetails.get(i).get(1));
 			student.setName(studentDetails.get(i).get(2));

@@ -11,7 +11,7 @@ public class TimeTableBuilder {
 		List<Student> students = new ArrayList<>();
 		List<List<String>> studentDetails = Utils.getStudentDetails(filename);
 		
-		for (int i = 9; i < studentDetails.size() - 1; i++) {
+		for (int i = 6; i < studentDetails.size() - 1; i++) {
 			if (studentDetails.get(i).size() > 5) {
 				Student student = new Student();
 				student.setRollNo(studentDetails.get(i).get(1));

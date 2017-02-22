@@ -1,10 +1,10 @@
 package org.rec.studentdetails.pojo;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class Student {
-	private Map<String,String> subjects = new HashMap<>();
+	private Map<String,String> subjects = new LinkedHashMap<>();
 	private String name;
 	private String rollNo;
 	private String mailId;

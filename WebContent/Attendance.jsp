@@ -24,16 +24,18 @@
 				<tr>
 					<td><c:out value="${student.name}" /></td>
 					<td><c:out value="${student.rollNo}" /></td>
+					<td><c:out value="${student.presents}" /></td>
+					<td><c:out value="${student.absents}" /></td>
 					<td><c:out value="${student.mailId}" /></td>
 					<td><c:out value="${student.phoneNo}" /></td>
 				</tr>
 			</c:forEach>
 		</TABLE>
-
-		<input type="submit" value="Sumbit"> 
-		<input type="button" value="SendReport" onclick="location.href = 'Settings.html';"> 
-		<input type="button" value="SendReport" onclick="location.href = 'SendMail.jsp';"> 
+		
+		<input type="button" value="SMS Report" onclick="location.href = 'Settings.html';"> 
+		<input type="button" value="Mail Report" onclick="location.href = 'SendMail.jsp';"> 
 		<input type="text" name="filter" value="60">
+		<input type="submit" value="Sumbit"> 
 	</form>
 </body>
 </html>

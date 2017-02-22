@@ -13,6 +13,9 @@
 	<%-- Using JSP EL to get message attribute value from request scope --%>
 	<h2>${requestScope.message}</h2>
 	
+	<form action="Attendance.jsp" method="get">
+	
+	<% 	session.setAttribute("filter", request.getParameter("filter")); 	%>
 	<%=session.getAttribute("passmark") %>
 
 	<TABLE border="1">
@@ -20,11 +23,23 @@
 			<tr>
 				<td><c:out value="${student.name}" /></td>
 				<td><c:out value="${student.rollNo}" /></td>
+				
+				<c:forEach items="${student.subjects}" var="subjects">
+				<td><c:out value="${subjects.value}" /></td> 
+				</c:forEach>
+				
+				
 				<td><c:out value="${student.mailId}" /></td>
 				<td><c:out value="${student.phoneNo}" /></td>
 			</tr>
 		</c:forEach>
 	</TABLE>
 
+	<input type="button" value="SMS Report" onclick="location.href = 'Settings.html';"> 
+	<input type="button" value="Mail Report" onclick="location.href = 'SendMail.jsp';"> 
+	<input type="text" name="filter" value="60">
+	<input type="submit" value="Sumbit"> 
+
+</form>
 </body>
 </html>

@@ -13,11 +13,11 @@ import javax.servlet.http.Part;
 
 import org.rec.studentdetails.builder.Builder;
 
-@WebServlet("/FileUploadServlet")
+@WebServlet("/MarksheetFileUploadServlet")
 @MultipartConfig(fileSizeThreshold = 1024 * 1024 * 10, // 10 MB
 		maxFileSize = 1024 * 1024 * 50, // 50 MB
 		maxRequestSize = 1024 * 1024 * 100) // 100 MB
-public class FileUploadServlet extends HttpServlet {
+public class MarksheetFileUploadServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 205242440643911308L;
 
@@ -51,16 +51,13 @@ public class FileUploadServlet extends HttpServlet {
 			part.write(uploadFilePath + File.separator + fileName);
 		}
 
+		// true indicates marksheet process
 		try {
-			request.getSession().setAttribute("report", new Builder().getStudentDetails(s,true));
+			request.getSession().setAttribute("marksheet", new Builder().getStudentDetails(s,true));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		if (new File(s).getName().contains("time")) {
-			getServletContext().getRequestDispatcher("/Attendance.jsp").forward(request, response);
-		} else {
-			getServletContext().getRequestDispatcher("/Marksheet.jsp").forward(request, response);
-		}
+		getServletContext().getRequestDispatcher("/MarksheetReview.jsp").forward(request, response);
 	}
 
 	/**

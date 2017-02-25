@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -5,14 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-
-<form action="MarksheetFileUploadServlet" method="post" enctype="multipart/form-data">
-
-Select File to Upload:<input type="file" name="fileName">
-<br>
-<input type="submit" value="Upload">
-
-</form>
-
+<h2>Thank for using automated ${requestScope.message} reporter</h2>
 </body>
 </html>

@@ -34,6 +34,7 @@
 Send report as: 
 	SMS<input type="checkbox" name="SMS" value="SMS">
 	Mail<input type="checkbox" name="Mail" value="Mail">
+	Mail To HOD<input type="checkbox" name="HOD" value="HOD">
 	<input type="submit" value="Sumbit"> 
 	</form>
 </body>

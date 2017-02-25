@@ -32,16 +32,20 @@ public class AttendanceReportSender extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		@SuppressWarnings("unchecked")
 		List<Student> students = (List<Student>) request.getSession().getAttribute("attendance");
 		if("Mail".equals(request.getParameter("Mail"))){			
-			new MailSender().sendMails(students);
+			new MailSender().sendMails(students, false);
 		}
 		
 		if("SMS".equals(request.getParameter("SMS"))){			
 			new SMSSender().sendMessage(students,false);
 		}
-		
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		if ("HOD".equals(request.getParameter("HOD"))) {
+			new MailSender().sendMailtoHOD(students, false);
+		}
+		request.setAttribute("message", "Attendance");
+		getServletContext().getRequestDispatcher("/Thankyou.jsp").forward(request, response);
 	}
 
 	/**

@@ -2,6 +2,7 @@ package org.rec.studentdetails.sender;
 
 import java.util.List;
 import java.util.Properties;
+
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.PasswordAuthentication;
@@ -16,8 +17,9 @@ import org.rec.studentdetails.pojo.Student;
 public class MailSender {
 
 	Session session = null;
+
 	public MailSender() {
-		
+
 		Properties props = new Properties();
 		props.put("mail.smtp.host", "smtp.gmail.com");
 		props.put("mail.smtp.socketFactory.port", "465");
@@ -30,23 +32,67 @@ public class MailSender {
 			}
 		});
 	}
-	
-	public void sendMails(List<Student> students) {
-		for(Student student : students){
+
+	public void sendMails(List<Student> students, boolean ismarksheet) {
+		for (Student student : students) {
 			try {
 				Message message = new MimeMessage(session);
 				message.setFrom(new InternetAddress(Utils.getvalue("email_username")));
 				message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(student.getMailId()));
 				message.setSubject(Utils.getvalue("email_subject"));
-				message.setText("Dear Parent, Please fine your son attendance details below\n\n\n"
-						+ "Total days : " + student.getAbsents() 
-						+ "\n No. of days Present : " + student.getPresents() 
-						+ "\n No. of days Absent : "+student.getAbsents()
-						+ " \nThanks\n RAC Thandalam");
+
+				if (ismarksheet) {
+					StringBuffer buffer = new StringBuffer();
+					buffer.append("Dear Parent, Please fine your son mark details below\n\n\n");
+
+					for (String subj : student.getSubjects().keySet()) {
+						buffer.append(subj + " : " + student.getSubjects().get(subj) + "\n");
+					}
+					message.setText(buffer.toString());
+				} else {
+					message.setText("Dear Parent, Please fine your son attendance details below\n\n\n" + "Total days : "
+							+ student.getAbsents() + "\n No. of days Present : " + student.getPresents()
+							+ "\n No. of days Absent : " + student.getAbsents() + " \nThanks\n RAC Thandalam");
+				}
+
 				Transport.send(message);
 			} catch (MessagingException e) {
 				throw new RuntimeException(e);
 			}
+		}
+	}
+
+	public void sendMailtoHOD(List<Student> students, boolean isMarkSheet) {
+		try {
+			Message message = new MimeMessage(session);
+			message.setFrom(new InternetAddress(Utils.getvalue("email_username")));
+			message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(Utils.getvalue("hod_mail_id")));
+			message.setSubject(Utils.getvalue("email_subject"));
+			StringBuffer buffer = new StringBuffer();
+			buffer.append("<html><table border=\"1\">");
+			for (Student student : students) {
+				if (isMarkSheet) {
+					buffer.append("<tr>");
+					buffer.append("<td>" + student.getName() + "</td>");
+					buffer.append("<td>" + student.getRollNo() + "</td>");
+					for (String subj : student.getSubjects().keySet()) {
+						buffer.append("<td>" + student.getSubjects().get(subj) + "</td>");
+					}
+					buffer.append("</tr>");
+				} else {
+					buffer.append("<tr>");
+					buffer.append("<td>" + student.getName() + "</td>");
+					buffer.append("<td>" + student.getRollNo() + "</td>");
+					buffer.append("<td>" + student.getAbsents() + "</td>");
+					buffer.append("<td>" + student.getPresents() + "</td>");
+					buffer.append("</tr>");
+				}
+			}
+			buffer.append("</table></html>");
+			message.setContent(buffer.toString(), "text/html; charset=utf-8");
+			Transport.send(message);
+		} catch (MessagingException e) {
+			throw new RuntimeException(e);
 		}
 	}
 }

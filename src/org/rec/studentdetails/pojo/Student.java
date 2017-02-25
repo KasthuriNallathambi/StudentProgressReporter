@@ -1,5 +1,6 @@
 package org.rec.studentdetails.pojo;
 
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -9,8 +10,11 @@ public class Student {
 	private String rollNo;
 	private String mailId;
 	private String phoneNo;
-	private int Presents;
-	private int Absents;
+	private float Presents;
+	private float Absents;
+	private int attendancePercentage;
+	public static int totalStudents;
+	public static Map<String,Integer> subjectResults = new HashMap<>();
 	
 	public Map<String, String> getSubjects() {
 		return subjects;
@@ -42,16 +46,22 @@ public class Student {
 	public void setPhoneNo(String phoneNo) {
 		this.phoneNo = phoneNo;
 	}
-	public int getPresents() {
+	public float getPresents() {
 		return Presents;
 	}
-	public void setPresents(int presents) {
+	public void setPresents(float presents) {
 		Presents = presents;
 	}
-	public int getAbsents() {
+	public float getAbsents() {
 		return Absents;
 	}
-	public void setAbsents(int absents) {
+	public void setAbsents(float absents) {
 		Absents = absents;
+	}
+	public int getAttendancePercentage() {
+		return attendancePercentage;
+	}
+	public void setAttendancePercentage(int attendancePercentage) {
+		this.attendancePercentage = attendancePercentage;
 	}
 }

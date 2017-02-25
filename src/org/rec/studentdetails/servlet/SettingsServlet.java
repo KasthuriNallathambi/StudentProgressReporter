@@ -1,4 +1,4 @@
-package org.rec.studentdetails;
+package org.rec.studentdetails.servlet;
 
 import java.io.IOException;
 import java.util.Enumeration;

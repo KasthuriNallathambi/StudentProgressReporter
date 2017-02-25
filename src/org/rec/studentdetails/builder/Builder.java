@@ -7,12 +7,12 @@ import org.rec.studentdetails.pojo.Student;
 public class Builder {
 	List<Student> studentsDetails ;
 	
-	public List<Student> getStudentDetails(String fileName) throws Exception {
+	public List<Student> getStudentDetails(String fileName, Boolean isMarksheet) throws Exception {
 		
-		if (fileName.contains("time")) {
-			studentsDetails = new TimeTableBuilder().getStudentDetails(fileName);
-		} else {
+		if (isMarksheet) {
 			studentsDetails = new MarkSheetBuilder().getStudentDetails(fileName);
+		} else {
+			studentsDetails = new TimeTableBuilder().getStudentDetails(fileName);
 		}
 		return studentsDetails;
 	}

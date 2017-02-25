@@ -10,14 +10,9 @@
 <title>Upload File Response</title>
 </head>
 <body>
-	<%-- Using JSP EL to get message attribute value from request scope --%>
-	<h2>${requestScope.message}</h2>
 	
-	<form action="Attendance.jsp" method="get">
+	<form action="ReportSender" method="get">
 	
-	<% 	session.setAttribute("filter", request.getParameter("filter")); 	%>
-	<%=session.getAttribute("passmark") %>
-
 	<TABLE border="1">
 		<c:forEach items="${report}" var="student">
 			<tr>
@@ -35,9 +30,9 @@
 		</c:forEach>
 	</TABLE>
 
-	<input type="button" value="SMS Report" onclick="location.href = 'Settings.html';"> 
-	<input type="button" value="Mail Report" onclick="location.href = 'SendMail.jsp';"> 
-	<input type="text" name="filter" value="60">
+Send report as: 
+	SMS<input type="checkbox" name="SMS" value="SMS">
+	Mail<input type="checkbox" name="Mail" value="Mail">
 	<input type="submit" value="Sumbit"> 
 
 </form>

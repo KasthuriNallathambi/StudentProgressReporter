@@ -9,6 +9,7 @@ import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.util.NumberToTextConverter;
 
 public class XLSReader {
 	public List<List<String>> read(String fileName) throws Exception {
@@ -43,7 +44,7 @@ public class XLSReader {
 		if (cell.getCellType() == HSSFCell.CELL_TYPE_STRING)
 			return cell.getStringCellValue();
 		else if (cell.getCellType() == HSSFCell.CELL_TYPE_NUMERIC)
-			return String.valueOf(cell.getNumericCellValue());
+			return NumberToTextConverter.toText(cell.getNumericCellValue());
 		else
 			return null;
 	}

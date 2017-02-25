@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import org.apache.poi.hssf.usermodel.HSSFCell;
+import org.apache.poi.ss.util.NumberToTextConverter;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
@@ -45,7 +46,7 @@ public class XLSXReader {
 		if (cell.getCellType() == XSSFCell.CELL_TYPE_STRING && !cell.getStringCellValue().isEmpty() && cell.getStringCellValue().length() > 0 )
 			return cell.getStringCellValue();
 		else if(cell.getCellType() == XSSFCell.CELL_TYPE_NUMERIC)
-			return String.valueOf(cell.getNumericCellValue());
+			return NumberToTextConverter.toText(cell.getNumericCellValue());
 		else 
 			return null;
 	}

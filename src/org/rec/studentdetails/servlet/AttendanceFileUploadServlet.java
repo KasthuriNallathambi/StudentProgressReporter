@@ -1,8 +1,7 @@
-package org.rec.studentdetails;
+package org.rec.studentdetails.servlet;
 
 import java.io.File;
 import java.io.IOException;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
@@ -13,11 +12,14 @@ import javax.servlet.http.Part;
 
 import org.rec.studentdetails.builder.Builder;
 
-@WebServlet("/FileUploadServlet")
+/**
+ * Servlet implementation class AttendanceFileUploadServlet
+ */
+@WebServlet("/AttendanceFileUploadServlet")
 @MultipartConfig(fileSizeThreshold = 1024 * 1024 * 10, // 10 MB
 		maxFileSize = 1024 * 1024 * 50, // 50 MB
 		maxRequestSize = 1024 * 1024 * 100) // 100 MB
-public class FileUploadServlet extends HttpServlet {
+public class AttendanceFileUploadServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 205242440643911308L;
 
@@ -52,15 +54,11 @@ public class FileUploadServlet extends HttpServlet {
 		}
 
 		try {
-			request.getSession().setAttribute("report", new Builder().getStudentDetails(s));
+			request.getSession().setAttribute("attendance", new Builder().getStudentDetails(s,false));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		if (new File(s).getName().contains("time")) {
-			getServletContext().getRequestDispatcher("/Attendance.jsp").forward(request, response);
-		} else {
-			getServletContext().getRequestDispatcher("/Marksheet.jsp").forward(request, response);
-		}
+		getServletContext().getRequestDispatcher("/AttendanceReview.jsp").forward(request, response);
 	}
 
 	/**

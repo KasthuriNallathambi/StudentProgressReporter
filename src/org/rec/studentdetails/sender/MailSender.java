@@ -32,8 +32,10 @@ public class MailSender {
 			}
 		});
 	}
-
+	
 	public void sendMails(List<Student> students, boolean ismarksheet) {
+		boolean isSend = false;
+		
 		for (Student student : students) {
 			try {
 				Message message = new MimeMessage(session);
@@ -47,21 +49,30 @@ public class MailSender {
 
 					for (String subj : student.getSubjects().keySet()) {
 						buffer.append(subj + " : " + student.getSubjects().get(subj) + "\n");
+						if(Integer.parseInt(student.getSubjects().get(subj)) < Integer.parseInt(Utils.getvalue("passmark"))){
+							isSend = true;
+						}
 					}
 					message.setText(buffer.toString());
 				} else {
+					
+					if(student.getAttendancePercentage() < Integer.parseInt(Utils.getvalue("attendance_percantage"))){
+						isSend = true;
+					}
+					
 					message.setText("Dear Parent, Please fine your son attendance details below\n\n\n" + "Total days : "
 							+ student.getAbsents() + "\n No. of days Present : " + student.getPresents()
 							+ "\n No. of days Absent : " + student.getAbsents() + " \nThanks\n RAC Thandalam");
 				}
 
-				Transport.send(message);
+				if(isSend)
+					Transport.send(message);
 			} catch (MessagingException e) {
 				throw new RuntimeException(e);
 			}
 		}
 	}
-
+	
 	public void sendMailtoHOD(List<Student> students, boolean isMarkSheet) {
 		try {
 			Message message = new MimeMessage(session);

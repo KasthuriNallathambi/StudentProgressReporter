@@ -10,6 +10,7 @@ import org.rec.studentdetails.pojo.Student;
 public class SMSSender {
 
 	public void sendMessage(List<Student> students, boolean isMarksheet) {
+		boolean isSend = false;
 		for (Student student : students) {
 			try {
 				if (student.getPhoneNo().length() == 10) {
@@ -18,27 +19,37 @@ public class SMSSender {
 
 					if (isMarksheet) {
 						for (String subj : student.getSubjects().keySet()) {
+							if (Integer.parseInt(student.getSubjects().get(subj)) < Integer.parseInt(Utils.getvalue("passmark"))) {
+								isSend = true;
+							}
 							buffer.append(subj + "=" + student.getSubjects().get(subj) + ",");
 						}
 					} else {
 						buffer.append("Total working days=" + (student.getPresents() + student.getAbsents()));
 						buffer.append(",Total presents=" + student.getPresents());
 						buffer.append(",Total absents=" + student.getAbsents());
-						buffer.append(",Attendance Parcentage=" + student.getAttendancePercentage()+"%");
+						buffer.append(",Attendance Parcentage=" + student.getAttendancePercentage() + "%");
+						if (student.getAttendancePercentage() < Integer.parseInt(Utils.getvalue("attendance_percantage"))) {
+							isSend = true;
+						}
 					}
 
-					URL url = new URL("http://api.txtlocal.com/send/?username=" + Utils.getvalue("sms_username")
-					+ "&hash=" + Utils.getvalue("sms_hashvalue") + "&numbers=+91" + student.getPhoneNo()
-					+ "&sender=" + Utils.getvalue("sms_sender_phone") + "&message=" + URLEncoder.encode(buffer.toString(), "UTF-8"));
+					if (isSend) {
+						URL url = new URL("http://api.txtlocal.com/send/?username=" + Utils.getvalue("sms_username")
+								+ "&hash=" + Utils.getvalue("sms_hashvalue") + "&numbers=+91" + student.getPhoneNo()
+								+ "&sender=" + Utils.getvalue("sms_sender_phone") + "&message="
+								+ URLEncoder.encode(buffer.toString(), "UTF-8"));
 
-					HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-					conn.setRequestMethod("GET");
-					conn.setRequestProperty("Accept", "application/json");
-					if (conn.getResponseCode() != 200) {
-						throw new RuntimeException("Failed : HTTP error code : " + conn.getResponseCode());
+						HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+						conn.setRequestMethod("GET");
+						conn.setRequestProperty("Accept", "application/json");
+						if (conn.getResponseCode() != 200) {
+							throw new RuntimeException("Failed : HTTP error code : " + conn.getResponseCode());
+						}
+						System.out.println(conn.getResponseCode());
+						conn.disconnect();
 					}
-					System.out.println(conn.getResponseCode());
-					conn.disconnect();
+
 				}
 			} catch (Exception e) {
 				e.printStackTrace();

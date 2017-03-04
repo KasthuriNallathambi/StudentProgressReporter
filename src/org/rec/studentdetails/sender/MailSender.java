@@ -73,11 +73,11 @@ public class MailSender {
 		}
 	}
 	
-	public void sendMailtoHOD(List<Student> students, boolean isMarkSheet) {
+	public void sendMail(List<Student> students,String mailId, boolean isMarkSheet) {
 		try {
 			Message message = new MimeMessage(session);
 			message.setFrom(new InternetAddress(Utils.getvalue("email_username")));
-			message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(Utils.getvalue("hod_mail_id")));
+			message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(mailId));
 			message.setSubject(Utils.getvalue("email_subject"));
 			StringBuffer buffer = new StringBuffer();
 			buffer.append("<html><table border=\"1\">");

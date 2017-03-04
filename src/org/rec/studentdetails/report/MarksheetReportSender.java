@@ -44,10 +44,13 @@ public class MarksheetReportSender extends HttpServlet {
 			new SMSSender().sendMessage(students, true);
 		}
 
-		if ("HOD".equals(request.getParameter("HOD"))) {
-			new MailSender().sendMailtoHOD(students, true);
-		}
+	//	if ("HOD".equals(request.getParameter("HOD"))) {
+			new MailSender().sendMail(students,org.rec.studentdetails.Utils.getvalue("hod_mail_id"), true);
+	//	}
 		
+		if (request.getParameter("faculty")!=null && !request.getParameter("faculty").isEmpty() && request.getParameter("faculty").length()>0 ) {
+			new MailSender().sendMail(students,request.getParameter("faculty"), true);
+		}
 		
 		request.setAttribute("message", "Marksheet");
 		getServletContext().getRequestDispatcher("/Thankyou.jsp").forward(request, response);

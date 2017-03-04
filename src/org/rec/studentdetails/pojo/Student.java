@@ -13,6 +13,7 @@ public class Student {
 	private float Presents;
 	private float Absents;
 	private int attendancePercentage;
+	
 	public static int totalStudents;
 	public static Map<String,Integer> subjectResults = new HashMap<>();
 	

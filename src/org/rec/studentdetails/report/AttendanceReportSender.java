@@ -41,9 +41,14 @@ public class AttendanceReportSender extends HttpServlet {
 		if("SMS".equals(request.getParameter("SMS"))){			
 			new SMSSender().sendMessage(students,false);
 		}
-		if ("HOD".equals(request.getParameter("HOD"))) {
-			new MailSender().sendMailtoHOD(students, false);
+	//	if ("HOD".equals(request.getParameter("HOD"))) {
+			new MailSender().sendMail(students,org.rec.studentdetails.Utils.getvalue("hod_mail_id"), false);
+	//	}
+		
+		if (request.getParameter("faculty")!=null && !request.getParameter("faculty").isEmpty() && request.getParameter("faculty").length()>0 ) {
+			new MailSender().sendMail(students,request.getParameter("faculty"), false);
 		}
+		
 		request.setAttribute("message", "Attendance");
 		getServletContext().getRequestDispatcher("/Thankyou.jsp").forward(request, response);
 	}

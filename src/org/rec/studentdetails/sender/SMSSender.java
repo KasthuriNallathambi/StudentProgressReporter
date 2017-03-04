@@ -15,7 +15,7 @@ public class SMSSender {
 			try {
 				if (student.getPhoneNo().length() == 10) {
 					StringBuffer buffer = new StringBuffer();
-					buffer.append("RAC Thandalam, ");
+					buffer.append("REC Thandalam, ");
 
 					if (isMarksheet) {
 						for (String subj : student.getSubjects().keySet()) {

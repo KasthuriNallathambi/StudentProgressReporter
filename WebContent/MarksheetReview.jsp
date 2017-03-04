@@ -48,10 +48,11 @@
 			</c:forEach>
 		</TABLE>
 
-		Send report as: SMS<input type="checkbox" name="SMS" value="SMS">
-		Mail<input type="checkbox" name="Mail" value="Mail"> Mail To
-		HOD<input type="checkbox" name="HOD" value="HOD"> <input
-			type="submit" value="Sumbit">
+		Send report as: SMS<input type="checkbox" name="SMS" value="SMS"> <br>
+		Mail<input type="checkbox" name="Mail" value="Mail"> <br>
+		<!-- Mail To	HOD<input type="checkbox" name="HOD" value="HOD"> <br> -->
+		Faculty Mail <input type="text" name="faculty" value="sample@gmail.com"> <br>
+		<input type="submit" value="Sumbit">
 
 	</form>
 </body>

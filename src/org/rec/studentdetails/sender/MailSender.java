@@ -12,6 +12,7 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
 import org.rec.studentdetails.Utils;
+import org.rec.studentdetails.pojo.CommonDetails;
 import org.rec.studentdetails.pojo.Student;
 
 public class MailSender {
@@ -33,7 +34,7 @@ public class MailSender {
 		});
 	}
 	
-	public void sendMails(List<Student> students, boolean ismarksheet) {
+	public void sendMails(CommonDetails commonDetails, List<Student> students, boolean ismarksheet) {
 		boolean isSend = false;
 		
 		for (Student student : students) {
@@ -42,10 +43,15 @@ public class MailSender {
 				message.setFrom(new InternetAddress(Utils.getvalue("email_username")));
 				message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(student.getMailId()));
 				message.setSubject(Utils.getvalue("email_subject"));
-
+				
 				if (ismarksheet) {
 					StringBuffer buffer = new StringBuffer();
 					buffer.append("Dear Parent, Please fine your son mark details below\n\n\n");
+					buffer.append("department : "+commonDetails.department);
+					buffer.append("\nFaculty : "+commonDetails.faculty);
+					buffer.append("\nSection : "+commonDetails.section);
+					buffer.append("\nSemester : "+commonDetails.semester);
+					buffer.append("\nSubject : "+commonDetails.subject);
 
 					for (String subj : student.getSubjects().keySet()) {
 						buffer.append(subj + " : " + student.getSubjects().get(subj) + "\n");
@@ -62,7 +68,8 @@ public class MailSender {
 					
 					message.setText("Dear Parent, Please fine your son attendance details below\n\n\n" + "Total days : "
 							+ student.getAbsents() + "\n No. of days Present : " + student.getPresents()
-							+ "\n No. of days Absent : " + student.getAbsents() + " \nThanks\n RAC Thandalam");
+							+ "\n No. of days Absent : " + student.getAbsents() + "\n Warnings : " + student.getWarningCount()
+							+ " \nThanks\n RAC Thandalam");
 				}
 
 				if(isSend)
@@ -73,8 +80,9 @@ public class MailSender {
 		}
 	}
 	
-	public void sendMail(List<Student> students,String mailId, boolean isMarkSheet) {
+	public void sendMail(CommonDetails commonDetails, List<Student> students,String mailId, boolean isMarkSheet) {
 		try {
+			boolean isSet = false;
 			Message message = new MimeMessage(session);
 			message.setFrom(new InternetAddress(Utils.getvalue("email_username")));
 			message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(mailId));
@@ -83,6 +91,18 @@ public class MailSender {
 			buffer.append("<html><table border=\"1\">");
 			for (Student student : students) {
 				if (isMarkSheet) {
+
+					if(!isSet){						
+						buffer.append("<tr>");
+						buffer.append("<td>Name</td>");
+						buffer.append("<td>RollNo</td>");
+						for (String subj : student.getSubjects().keySet()) {
+							buffer.append("<td>" + subj + "</td>");
+						}
+						buffer.append("</tr>");
+						isSet = true;
+					}
+					
 					buffer.append("<tr>");
 					buffer.append("<td>" + student.getName() + "</td>");
 					buffer.append("<td>" + student.getRollNo() + "</td>");
@@ -91,12 +111,26 @@ public class MailSender {
 					}
 					buffer.append("</tr>");
 				} else {
-					buffer.append("<tr>");
+					if(!isSet){
+						buffer.append("<tr>");
+						buffer.append("<td>Name</td>");
+						buffer.append("<td>RollNo</td>");
+						buffer.append("<td>Absents</td>");
+						buffer.append("<td>Presents</td>");
+						buffer.append("<td>Warnings</td>");
+						buffer.append("<tr>");
+						isSet = true;
+					}
+					
 					buffer.append("<td>" + student.getName() + "</td>");
 					buffer.append("<td>" + student.getRollNo() + "</td>");
 					buffer.append("<td>" + student.getAbsents() + "</td>");
 					buffer.append("<td>" + student.getPresents() + "</td>");
+					buffer.append("<td>" + student.getWarningCount() + "</td>");
 					buffer.append("</tr>");
+					buffer.append("Department : "+commonDetails.department);
+					buffer.append("Year : "+commonDetails.year);
+					buffer.append("Semester : "+commonDetails.semester);
 				}
 			}
 			buffer.append("</table></html>");

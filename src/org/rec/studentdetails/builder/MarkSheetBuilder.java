@@ -21,25 +21,19 @@ public class MarkSheetBuilder {
 			student.setPhoneNo(studentDetails.get(i).get(4));
 			
 			Map<String, String> subjects = student.getSubjects();
-			subjects.put(studentDetails.get(0).get(5), studentDetails.get(i).get(5));
-			subjects.put(studentDetails.get(0).get(6), studentDetails.get(i).get(6));
-			subjects.put(studentDetails.get(0).get(7), studentDetails.get(i).get(7));
-			subjects.put(studentDetails.get(0).get(8), studentDetails.get(i).get(8));
-			subjects.put(studentDetails.get(0).get(9), studentDetails.get(i).get(9));
+			
+			for(int columnCount=5; columnCount<studentDetails.get(0).size(); columnCount++){
+				subjects.put(studentDetails.get(0).get(columnCount), studentDetails.get(i).get(columnCount));
+				checkStatus(studentDetails.get(0).get(columnCount), studentDetails.get(i).get(columnCount));
+			}
 			students.add(student);
 			Student.totalStudents++;
-			
-			checkStatus(studentDetails.get(0).get(5), studentDetails.get(i).get(5));
-			checkStatus(studentDetails.get(0).get(6), studentDetails.get(i).get(6));
-			checkStatus(studentDetails.get(0).get(7), studentDetails.get(i).get(7));
-			checkStatus(studentDetails.get(0).get(8), studentDetails.get(i).get(8));
-			checkStatus(studentDetails.get(0).get(9), studentDetails.get(i).get(9));
 		}
 		return students;
 	}
 	
 	private void checkStatus(String subject, String mark) {
-		if (Integer.parseInt(mark) < Integer.parseInt(Utils.getvalue("passmark"))) {			
+		if (Integer.parseInt(mark) < Integer.parseInt(Utils.getvalue("passmark"))) {
 			if(Student.subjectResults.containsKey(subject)){
 				Student.subjectResults.put(subject, Student.subjectResults.get(subject)+1);
 			} else {

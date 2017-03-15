@@ -13,9 +13,11 @@ public class Student {
 	private float Presents;
 	private float Absents;
 	private int attendancePercentage;
+	private int warningCount;
 	
 	public static int totalStudents;
 	public static Map<String,Integer> subjectResults = new HashMap<>();
+	public static int eligibleStudents;
 	
 	public Map<String, String> getSubjects() {
 		return subjects;
@@ -64,5 +66,11 @@ public class Student {
 	}
 	public void setAttendancePercentage(int attendancePercentage) {
 		this.attendancePercentage = attendancePercentage;
+	}
+	public int getWarningCount() {
+		return warningCount;
+	}
+	public void setWarningCount(int warningCount) {
+		this.warningCount = warningCount;
 	}
 }

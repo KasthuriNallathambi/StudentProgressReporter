@@ -7,6 +7,9 @@ import org.rec.studentdetails.Utils;
 import org.rec.studentdetails.pojo.Student;
 
 public class TimeTableBuilder {
+	
+	int eligibleStudents = 0;
+	
 	public List<Student> getStudentDetails(String filename) throws Exception {
 		List<Student> students = new ArrayList<>();
 		List<List<String>> studentDetails = Utils.getStudentDetails(filename);
@@ -16,7 +19,7 @@ public class TimeTableBuilder {
 				
 				float present = Float.parseFloat(studentDetails.get(i).get(3));
 				float absent = Float.parseFloat(studentDetails.get(i).get(4));
-				float  parcentage =  (present/(present +absent))*100;
+				float parcentage = (present / (present + absent)) * 100;
 				
 				Student student = new Student();
 				student.setRollNo(studentDetails.get(i).get(1));
@@ -26,11 +29,20 @@ public class TimeTableBuilder {
 				student.setPhoneNo(studentDetails.get(i).get(7));
 				student.setMailId(studentDetails.get(i).get(8));
 				
-				student.setAttendancePercentage((int)parcentage);
+				student.setAttendancePercentage((int) parcentage);
 				students.add(student);
 				Student.totalStudents++;
+				
+				checkParcentage(parcentage);
 			}
 		}
+		Student.eligibleStudents = eligibleStudents;
 		return students;
+	}
+
+	private void checkParcentage(float parcentage) {
+		if(parcentage >= Float.parseFloat(Utils.getvalue("attendance_percantage"))){			
+			eligibleStudents++;
+		}
 	}
 }

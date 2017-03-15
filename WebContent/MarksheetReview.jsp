@@ -51,7 +51,15 @@
 		Send report as: SMS<input type="checkbox" name="SMS" value="SMS"> <br>
 		Mail<input type="checkbox" name="Mail" value="Mail"> <br>
 		<!-- Mail To	HOD<input type="checkbox" name="HOD" value="HOD"> <br> -->
-		Faculty Mail <input type="text" name="faculty" value="sample@gmail.com"> <br>
+		
+		
+		Faculty Mail <input type="text" name="facultyMail" value="sample@gmail.com"> <br>
+		Department <input type="text" name="department" value="CSC"> <br>
+		Year <input type="text" name="year" value="4"> <br>
+		Semester <input type="text" name="semester" value="7"> <br>
+		Section <input type="text" name="section" value=""> <br>
+		Subject <input type="text" name="subject" value="OOAD"> <br>
+		Faculty <input type="text" name="faculty" value="sample@gmail.com"> <br>	
 		<input type="submit" value="Sumbit">
 
 	</form>

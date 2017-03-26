@@ -97,7 +97,6 @@ h2 {
 			String var = "pertg";
 			request.setAttribute("pertg", Utils.getvalue("attendance_percantage"));
 		%>
-<h1 style="font-family: Georgia, Garamond, Serif; color: white;" align="center">Rajalakshmi engineering college</h1>
 		<table align="center" width="100%">
 			<tr>
 				<td>

@@ -94,8 +94,6 @@ h2 {
 <body>
 
 	<form action="MarksheetReportSender" method="get">
-		<h1 style="font-family: Georgia, Garamond, Serif; color: white;"
-			align="center">Rajalakshmi engineering college</h1>
 
 		<%
 			String var = "pertg";

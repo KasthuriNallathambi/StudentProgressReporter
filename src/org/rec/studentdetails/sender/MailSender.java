@@ -67,7 +67,7 @@ public class MailSender {
 					}
 					
 					message.setText("Dear Parent, Please fine your son attendance details below\n\n\n" + "Total days : "
-							+ student.getAbsents()+student.getPresents() + "\n No. of days Present : " + student.getPresents()
+							+ (student.getAbsents()+student.getPresents()) + "\n No. of days Present : " + student.getPresents()
 							+ "\n No. of days Absent : " + student.getAbsents() + "\n Warnings : " + student.getWarningCount()
 							+ " \nThanks\n RAC Thandalam");
 				}
@@ -128,12 +128,12 @@ public class MailSender {
 					buffer.append("<td>" + student.getPresents() + "</td>");
 					buffer.append("<td>" + student.getWarningCount() + "</td>");
 					buffer.append("</tr>");
-					buffer.append("Department : "+commonDetails.department);
-					buffer.append("Year : "+commonDetails.year);
-					buffer.append("Semester : "+commonDetails.semester);
 				}
 			}
 			buffer.append("</table></html>");
+//			buffer.append("Department : "+commonDetails.department);
+			buffer.append("\nYear : "+commonDetails.year);
+			buffer.append("\nSemester : "+commonDetails.semester);
 			message.setContent(buffer.toString(), "text/html; charset=utf-8");
 			Transport.send(message);
 		} catch (MessagingException e) {

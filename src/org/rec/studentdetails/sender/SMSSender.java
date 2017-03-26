@@ -42,11 +42,12 @@ public class SMSSender {
 					}
 
 					if (isSend) {
-						URL url = new URL("http://api.txtlocal.com/send/?username=" + Utils.getvalue("sms_username")
+						URL url = new URL(Utils.getvalue("url")+"?username=" + Utils.getvalue("sms_username")
 								+ "&hash=" + Utils.getvalue("sms_hashvalue") + "&numbers=+91" + student.getPhoneNo()
 								+ "&sender=" + Utils.getvalue("sms_sender_phone") + "&message="
 								+ URLEncoder.encode(buffer.toString(), "UTF-8"));
 
+						System.out.println(url.toString());
 						HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 						conn.setRequestMethod("GET");
 						conn.setRequestProperty("Accept", "application/json");

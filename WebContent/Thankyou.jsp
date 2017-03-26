@@ -84,7 +84,7 @@ h2{
 <form>
 <div>
 
-<a href="img.html" ><input type="button" value="Logout"></a>
+<a href="index.html" ><input type="button" value="Logout"></a>
 </div>
 </form>
 </body>

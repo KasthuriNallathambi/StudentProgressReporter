@@ -129,13 +129,14 @@ h2 {
 					</table>
 				</td>
 
-				<td  style="vertical-align: top;  text-align: left; background-color: #123626;" >
+				<td  style="vertical-align: top;  text-align: left; " >
 					<div>
 						<label>Enter the Details</label>
 						<!--  Department <input type="text" name="department" value=""> <br>-->
-						<label>Year</label> <input type="text" name="year" value="">
-						<br> <label>Semester</label> <input type="text"
-							name="semester" value=""> <br> <label>Section</label>
+						<label>Year</label> <input type="text" name="year" value=""> <br> 
+						<label>Semester</label> <input type="text"	name="semester" value=""> <br> 
+						<label>Slot</label> <input type="text"	name="slot" value=""> <br> 
+							<label>Section</label>
 						<input type="text" name="section" value=""> <br> <label
 							name="smslabel">SMS</label><input type="checkbox" name="SMS"
 							value="SMS"> <br> <label name="maillabel">Mail</label><input

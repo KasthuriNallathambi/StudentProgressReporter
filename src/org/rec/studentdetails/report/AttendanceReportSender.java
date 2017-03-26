@@ -74,26 +74,25 @@ public class AttendanceReportSender extends HttpServlet {
 				&& request.getParameter("faculty").length() > 0) {
 			commonDetails.faculty = request.getParameter("faculty").trim();
 		}
-		updateWarning(students,commonDetails);
+		updateWarning(students, commonDetails);
 
 		if ("SMS".equals(request.getParameter("SMS"))) {
-			 new SMSSender().sendMessage(commonDetails, students, false);
+			new SMSSender().sendMessage(commonDetails, students, false);
 		}
 
 		if ("Mail".equals(request.getParameter("Mail"))) {
-			 new MailSender().sendMails(commonDetails, students, false);
+			new MailSender().sendMails(commonDetails, students, false);
 		}
 
 		// if ("HOD".equals(request.getParameter("HOD"))) {
-		 new MailSender().sendMail(commonDetails, students, org.rec.studentdetails.Utils.getvalue("hod_mail_id"), false);
+		new MailSender().sendMail(commonDetails, students, org.rec.studentdetails.Utils.getvalue("hod_mail_id"), false);
 		// }
 
 		if (request.getParameter("facultyMail") != null && !request.getParameter("facultyMail").isEmpty()
 				&& request.getParameter("facultyMail").length() > 0) {
-			 new MailSender().sendMail(commonDetails, students, request.getParameter("facultyMail"), false);
+			new MailSender().sendMail(commonDetails, students, request.getParameter("facultyMail"), false);
 		}
 
-       
 		request.setAttribute("message", "Attendance");
 		getServletContext().getRequestDispatcher("/Thankyou.jsp").forward(request, response);
 	}
@@ -101,18 +100,18 @@ public class AttendanceReportSender extends HttpServlet {
 	private void updateWarning(List<Student> students, CommonDetails commonDetails) {
 		String file = "AttendanceReport";
 		String extn = ".properties";
-		int slot = Integer.parseInt(commonDetails.slot);
-		String filename = file+slot+extn;
-		String oldFilename = file+(slot-1)+extn;
-		Properties properties = null;
-		
-		if(slot > 1) {
-			properties = Utils.getAttendanceProperty(oldFilename);
-		} else {
-			properties = new Properties();
-		}
-		
 		try {
+			int slot = Integer.parseInt(commonDetails.slot);
+			String filename = file + slot + extn;
+			String oldFilename = file + (slot - 1) + extn;
+			Properties properties = null;
+
+			if (slot > 1) {
+				properties = Utils.getAttendanceProperty(oldFilename);
+			} else {
+				properties = new Properties();
+			}
+
 			for (Student student : students) {
 				if (student.getAttendancePercentage() <= Float.parseFloat(Utils.getvalue("attendance_percantage"))) {
 					String warningStr = (String) properties.get(student.getRollNo());

@@ -13,4 +13,5 @@ public class CommonDetails {
 	public String section;
 	public String subject;
 	public String faculty;
+	public String slot;
 }

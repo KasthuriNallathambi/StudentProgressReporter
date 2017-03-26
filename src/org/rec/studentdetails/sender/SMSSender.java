@@ -17,10 +17,10 @@ public class SMSSender {
 				if (student.getPhoneNo().length() == 10) {
 					StringBuffer buffer = new StringBuffer();
 					buffer.append("REC Thandalam, ");
-					buffer.append("department"+commonDetails.department);
+				//	buffer.append("department"+commonDetails.department);
 					buffer.append("Faculty"+commonDetails.faculty);
-					buffer.append("Section"+commonDetails.section);
-					buffer.append("Semester"+commonDetails.semester);
+				//	buffer.append("Section"+commonDetails.section);
+				//	buffer.append("Semester"+commonDetails.semester);
 					buffer.append("Subject"+commonDetails.subject);
 
 					if (isMarksheet) {

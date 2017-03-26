@@ -13,6 +13,8 @@ import java.util.Properties;
 import org.rec.studentdetails.reader.XLSReader;
 import org.rec.studentdetails.reader.XLSXReader;
 
+import com.sun.org.apache.regexp.internal.recompile;
+
 public class Utils {
 	@SuppressWarnings("unchecked")
 	public static List<List<String>> getStudentDetails(String fileName) throws Exception {
@@ -42,7 +44,10 @@ public class Utils {
 		return value;
 	}
 	
-	public static Properties getAttendanceProperty(){
+/*	public static Properties getAttendanceProperty(String slot){
+		
+		int slotNo = Integer.parseInt(slot);
+		
 		Properties properties = new Properties();
 		try {
 			InputStream inStream = new FileInputStream(new File("AttendanceReport.properties"));
@@ -59,12 +64,36 @@ public class Utils {
 			return properties;
 		}
 		return properties;
+	}*/
+	
+	public static Properties createAttendanceProperty(String filename){
+		OutputStream output;
+		Properties properties = new Properties();
+		try {
+			output = new FileOutputStream(filename);
+			properties = new Properties();
+			properties.store(output, null);
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return properties;
+	}
+
+	public static Properties getAttendanceProperty(String filename){
+		Properties properties = new Properties();
+		try {
+			InputStream inStream = new FileInputStream(new File(filename));
+			properties.load(inStream);
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return properties;
 	}
 	
-	public static void updateProperties(Properties prop){
+	public static void updateProperties(Properties prop,String filename){
 		OutputStream output = null;
 		try {
-			output = new FileOutputStream("AttendanceReport.properties");
+			output = new FileOutputStream(filename);
 			prop.store(output, null);
 		} catch (IOException io) {
 			io.printStackTrace();
@@ -72,8 +101,7 @@ public class Utils {
 	}
 	
 	public static void main(String args[]){
-		Properties properties = getAttendanceProperty();
-		properties.setProperty("raja", "343");
-		updateProperties(properties);
+		createAttendanceProperty("zfszs.properties");
+		System.out.println("dvdv");
 	}
 }

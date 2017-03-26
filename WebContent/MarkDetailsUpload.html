@@ -1,0 +1,110 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Insert title here</title>
+<style>
+body
+{
+ background-color : #262626;
+}
+form{
+background: #000;
+margin-top:200px;
+margin-left:380px;
+margin-right:410px;
+padding: 2em 1em;
+font-family: helvetica, sans-serif;
+-webkit-border-radius: 5px;
+-moz-border-radius: 5px;
+border-radius: 5px;
+text-align : left;
+}
+
+div
+{
+ 
+    width: 300px;
+    border: black;
+    padding: 25px;
+    background :black
+    margin: 25px;
+ 
+}
+label {
+  color: #fff;
+  margin: 2.5em 3% 0;
+  display: block;
+  font-family: helvetica, sans-serif;
+
+  width :100%;
+}
+
+input[type="file"] {
+    display: none; <!-- path is not showing bcz of this-->
+}
+input[type ="file"]:focus {
+  border: 2px solid #1fd100;
+}
+.classforupload
+{
+ <!--border: 1px solid #ccc;-->
+   display: inline-block;
+    padding: 6px 12px;
+    cursor: pointer;
+	width: 150%;
+	  margin: 2em 3% 0;
+  border: none;
+  background: #1fd100;
+  padding: 1em 0;
+  font-size: 1.2em;
+  clear: both;
+  color: #000;
+ border-radius: 5px;
+  
+  
+<!--width:97%;
+  padding: .5em .25em;
+  margin: 0 3% 1em;
+  font-size: 1.2em;
+  added for file type refer style.css for original 
+    display: inline-block;
+    padding: 6px 12px;
+    cursor: pointer;
+  border: 2px solid #000;
+  outline: none;
+   border-radius: 5px;-->
+   }
+button {
+  width: 160%;
+  margin: 2em 3% 0;
+  border: none;
+  background: #1fd100;
+  padding: 1em 0;
+  font-size: 1.2em;
+  clear: both;
+  color: #000;
+ 
+  border-radius: 5px;
+  
+  cursor: pointer;
+}
+
+</style>
+
+</head>
+<body>
+
+<form action="MarksheetFileUploadServlet" method="post" enctype="multipart/form-data">
+<div>
+<center><label name="selectfietoupload" for="file-upload" class = "classforupload">Select File to Upload</label></center>
+<input id ="file-upload" type="file" name="fileName" >
+
+<button  type="submit">Upload</button>
+
+</div>
+</form>
+
+</body>
+</html>

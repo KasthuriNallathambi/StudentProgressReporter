@@ -18,6 +18,8 @@ import org.rec.studentdetails.pojo.Student;
 import org.rec.studentdetails.sender.MailSender;
 import org.rec.studentdetails.sender.SMSSender;
 
+import com.sun.corba.se.impl.javax.rmi.CORBA.Util;
+
 /**
  * Servlet implementation class AttendanceReportSender
  */
@@ -64,11 +66,15 @@ public class AttendanceReportSender extends HttpServlet {
 				&& request.getParameter("subject").length() > 0) {
 			commonDetails.subject = request.getParameter("subject").trim();
 		}
+		if (request.getParameter("slot") != null && !request.getParameter("slot").isEmpty()
+				&& request.getParameter("slot").length() > 0) {
+			commonDetails.slot = request.getParameter("slot").trim();
+		}
 		if (request.getParameter("faculty") != null && !request.getParameter("faculty").isEmpty()
 				&& request.getParameter("faculty").length() > 0) {
 			commonDetails.faculty = request.getParameter("faculty").trim();
 		}
-		updateWarning(students);
+		updateWarning(students,commonDetails);
 
 		if ("SMS".equals(request.getParameter("SMS"))) {
 			 new SMSSender().sendMessage(commonDetails, students, false);
@@ -92,24 +98,35 @@ public class AttendanceReportSender extends HttpServlet {
 		getServletContext().getRequestDispatcher("/Thankyou.jsp").forward(request, response);
 	}
 
-	private void updateWarning(List<Student> students) {
-		Properties prop = Utils.getAttendanceProperty();
-
+	private void updateWarning(List<Student> students, CommonDetails commonDetails) {
+		String file = "AttendanceReport";
+		String extn = ".properties";
+		int slot = Integer.parseInt(commonDetails.slot);
+		String filename = file+slot+extn;
+		String oldFilename = file+(slot-1)+extn;
+		Properties properties = null;
+		
+		if(slot > 1) {
+			properties = Utils.getAttendanceProperty(oldFilename);
+		} else {
+			properties = new Properties();
+		}
+		
 		try {
 			for (Student student : students) {
 				if (student.getAttendancePercentage() <= Float.parseFloat(Utils.getvalue("attendance_percantage"))) {
-					String warningStr = (String) prop.get(student.getRollNo());
+					String warningStr = (String) properties.get(student.getRollNo());
 					int warnings = 1;
 					if (warningStr != null && !warningStr.isEmpty() && warningStr.trim().length() > 0) {
 						warnings = Integer.parseInt(warningStr);
 						warnings++;
 					}
-					prop.setProperty(student.getRollNo(), String.valueOf(warnings));
+					properties.setProperty(student.getRollNo(), String.valueOf(warnings));
 					student.setWarningCount(warnings);
 				}
 			}
-			prop.store(new FileOutputStream("AttendanceReport.properties"), null);
-			System.out.println(new File("AttendanceReport.properties").getAbsolutePath());
+			properties.store(new FileOutputStream(filename), null);
+			System.out.println(new File(filename).getAbsolutePath());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

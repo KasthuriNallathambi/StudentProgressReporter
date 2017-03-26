@@ -47,10 +47,10 @@ public class MailSender {
 				if (ismarksheet) {
 					StringBuffer buffer = new StringBuffer();
 					buffer.append("Dear Parent, Please fine your son mark details below\n\n\n");
-					buffer.append("department : "+commonDetails.department);
+				//	buffer.append("department : "+commonDetails.department);
 					buffer.append("\nFaculty : "+commonDetails.faculty);
-					buffer.append("\nSection : "+commonDetails.section);
-					buffer.append("\nSemester : "+commonDetails.semester);
+				//	buffer.append("\nSection : "+commonDetails.section);
+				//	buffer.append("\nSemester : "+commonDetails.semester);
 					buffer.append("\nSubject : "+commonDetails.subject);
 
 					for (String subj : student.getSubjects().keySet()) {
@@ -67,7 +67,7 @@ public class MailSender {
 					}
 					
 					message.setText("Dear Parent, Please fine your son attendance details below\n\n\n" + "Total days : "
-							+ student.getAbsents() + "\n No. of days Present : " + student.getPresents()
+							+ student.getAbsents()+student.getPresents() + "\n No. of days Present : " + student.getPresents()
 							+ "\n No. of days Absent : " + student.getAbsents() + "\n Warnings : " + student.getWarningCount()
 							+ " \nThanks\n RAC Thandalam");
 				}

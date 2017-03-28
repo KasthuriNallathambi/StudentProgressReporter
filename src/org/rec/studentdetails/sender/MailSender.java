@@ -94,6 +94,7 @@ public class MailSender {
 			message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(mailId));
 			message.setSubject(Utils.getvalue("email_subject"));
 			StringBuffer buffer = new StringBuffer();
+			StringBuffer buffer1 = new StringBuffer();
 			buffer.append("<html><table border=\"1\">");
 			for (Student student : students) {
 				if (isMarkSheet) {
@@ -108,14 +109,22 @@ public class MailSender {
 						buffer.append("</tr>");
 						isSet = true;
 					}
-					
-					buffer.append("<tr>");
-					buffer.append("<td>" + student.getName() + "</td>");
-					buffer.append("<td>" + student.getRollNo() + "</td>");
+
+					boolean isSend = false;
+					buffer1.append("<tr>");
+					buffer1.append("<td>" + student.getName() + "</td>");
+					buffer1.append("<td>" + student.getRollNo() + "</td>");
 					for (String subj : student.getSubjects().keySet()) {
-						buffer.append("<td>" + student.getSubjects().get(subj) + "</td>");
+						buffer1.append("<td>" + student.getSubjects().get(subj) + "</td>");
+						if(Integer.parseInt(student.getSubjects().get(subj)) < Integer.parseInt(Utils.getvalue("passmark"))){
+							isSend = true;
+						}
 					}
-					buffer.append("</tr>");
+					buffer1.append("</tr>");
+					
+					if(isSend)
+						buffer.append(buffer1);
+					
 				} else {
 					if(!isSet){
 						buffer.append("<tr>");
@@ -128,12 +137,14 @@ public class MailSender {
 						isSet = true;
 					}
 					
-					buffer.append("<td>" + student.getName() + "</td>");
-					buffer.append("<td>" + student.getRollNo() + "</td>");
-					buffer.append("<td>" + student.getAbsents() + "</td>");
-					buffer.append("<td>" + student.getPresents() + "</td>");
-					buffer.append("<td>" + student.getWarningCount() + "</td>");
-					buffer.append("</tr>");
+					if(student.getAttendancePercentage() < Integer.parseInt(Utils.getvalue("attendance_percantage"))){
+						buffer.append("<td>" + student.getName() + "</td>");
+						buffer.append("<td>" + student.getRollNo() + "</td>");
+						buffer.append("<td>" + student.getAbsents() + "</td>");
+						buffer.append("<td>" + student.getPresents() + "</td>");
+						buffer.append("<td>" + student.getWarningCount() + "</td>");
+						buffer.append("</tr>");						
+					}
 				}
 			}
 			buffer.append("</table></html>");

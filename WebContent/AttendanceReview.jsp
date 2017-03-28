@@ -136,15 +136,15 @@ h2 {
 						<label>Semester</label> <input type="text"	name="semester" value=""> <br> 
 						<label>Slot</label> <input type="text"	name="slot" value=""> <br> 
 							<label>Section</label>
-						<input type="text" name="section" value=""> <br> <label
-							name="smslabel">SMS</label><input type="checkbox" name="SMS"
-							value="SMS"> <br> <label name="maillabel">Mail</label><input
-							type="checkbox" name="Mail" value="Mail"> <br>
+						<input type="text" name="section" value=""> <br> <label>SMS</label>
+						<input type="checkbox" name="SMS"value="SMS"> <br> 
+						<label >Mail</label>
+						<input type="checkbox" name="Mail" value="Mail"> <br>
 						<!-- Mail To	HOD<input type="checkbox" name="HOD" value="HOD"> <br> -->
-						<label name="facultymaillablel">Faculty Mail</label> <input
+						<label >Faculty Mail</label> <input
 							type="text" name="faculty" value="kasthudheiva@gmail.com">
 						<br>
-						<button type="submit">Sumbit</button>
+						<button type="submit">Submit</button>
 					</div>
 				<td>
 			</tr>

@@ -79,8 +79,8 @@ h2{
 }
  </style>
 </head>
-<body>
-<h2>Thanks for using automated ${requestScope.message} reporter</h2>
+<body background="recnew.jpg" style="background-size:cover ;margin-left: 70px;margin-top:90px; background-repeat : no-repeat">
+<h2>&nbsp;&nbsp;&nbsp;Thanks for using automated ${requestScope.message} reporter</h2>
 <form>
 <div>
 

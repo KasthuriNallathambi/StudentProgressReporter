@@ -24,12 +24,12 @@ text-align : left;
 
 div
 {
- 
+   
     width: 300px;
     border: black;
     padding: 25px;
     background :black
-    margin: 25px;
+    margin: 45px;
  
 }
 label {
@@ -94,14 +94,14 @@ button {
 </style>
 
 </head>
-<body>
 
+<body background="recnew.jpg" style="background-size:cover ;margin-top:90px; background-repeat : no-repeat">
 
 <center>
 <form action="AttendanceFileUploadServlet" method="post" enctype="multipart/form-data">
 <div>
 
-<center><label name="selectfietoupload" for="file-upload" class = "classforupload">Select File to Upload</label></center>
+<center><label for="file-upload" class = "classforupload">Select File to Upload</label></center>
 <input id ="file-upload" type="file" name="fileName" >
 
 <button  type="submit">Upload</button>

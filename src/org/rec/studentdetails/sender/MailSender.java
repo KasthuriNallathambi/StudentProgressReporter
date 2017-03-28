@@ -54,22 +54,28 @@ public class MailSender {
 					buffer.append("\nSubject : "+commonDetails.subject);
 
 					for (String subj : student.getSubjects().keySet()) {
-						buffer.append(subj + " : " + student.getSubjects().get(subj) + "\n");
+					//	buffer.append(subj + " : " + student.getSubjects().get(subj) + "\n");
 						if(Integer.parseInt(student.getSubjects().get(subj)) < Integer.parseInt(Utils.getvalue("passmark"))){
+							buffer.append(subj + " : " + student.getSubjects().get(subj) + "\n");
 							isSend = true;
+							
 						}
 					}
 					message.setText(buffer.toString());
 				} else {
 					
 					if(student.getAttendancePercentage() < Integer.parseInt(Utils.getvalue("attendance_percantage"))){
+						message.setText("Dear Parent, Please find your ward attendance details below\n\n\n" + "Total days : "
+								+ (student.getAbsents()+student.getPresents()) + "\n No. of days Present : " + student.getPresents()
+								+ "\n No. of days Absent : " + student.getAbsents() + "\n Warnings : " + student.getWarningCount()
+								+ " \nThanks\n REC Thandalam");
 						isSend = true;
 					}
 					
-					message.setText("Dear Parent, Please fine your son attendance details below\n\n\n" + "Total days : "
+					/*message.setText("Dear Parent, Please find your ward attendance details below\n\n\n" + "Total days : "
 							+ (student.getAbsents()+student.getPresents()) + "\n No. of days Present : " + student.getPresents()
 							+ "\n No. of days Absent : " + student.getAbsents() + "\n Warnings : " + student.getWarningCount()
-							+ " \nThanks\n RAC Thandalam");
+							+ " \nThanks\n REC Thandalam");*/
 				}
 
 				if(isSend)
@@ -132,6 +138,7 @@ public class MailSender {
 			}
 			buffer.append("</table></html>");
 //			buffer.append("Department : "+commonDetails.department);
+			buffer.append("\nSlot:"+commonDetails.slot);
 			buffer.append("\nYear : "+commonDetails.year);
 			buffer.append("\nSemester : "+commonDetails.semester);
 			message.setContent(buffer.toString(), "text/html; charset=utf-8");

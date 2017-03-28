@@ -19,7 +19,7 @@ public class TimeTableBuilder {
 				try{					
 					float present = Float.parseFloat(studentDetails.get(i).get(3));
 					float absent = Float.parseFloat(studentDetails.get(i).get(4));
-					float parcentage = (present / (present + absent)) * 100;
+					float percentage = (present / (present + absent)) * 100;
 					
 					Student student = new Student();
 					student.setRollNo(studentDetails.get(i).get(1));
@@ -29,11 +29,11 @@ public class TimeTableBuilder {
 					student.setPhoneNo(studentDetails.get(i).get(7));
 					student.setMailId(studentDetails.get(i).get(8));
 					
-					student.setAttendancePercentage((int) parcentage);
+					student.setAttendancePercentage((int) percentage);
 					students.add(student);
 					Student.totalStudents++;
 					
-					checkParcentage(parcentage);
+					checkPercentage(percentage);
 				}catch (Exception e) {
 				}
 			}
@@ -42,8 +42,8 @@ public class TimeTableBuilder {
 		return students;
 	}
 
-	private void checkParcentage(float parcentage) {
-		if(parcentage >= Float.parseFloat(Utils.getvalue("attendance_percantage"))){			
+	private void checkPercentage(float percentage) {
+		if(percentage >= Float.parseFloat(Utils.getvalue("attendance_percantage"))){			
 			eligibleStudents++;
 		}
 	}

@@ -18,10 +18,10 @@ public class SMSSender {
 					StringBuffer buffer = new StringBuffer();
 					buffer.append("REC Thandalam, ");
 				//	buffer.append("department"+commonDetails.department);
-					buffer.append("Faculty"+commonDetails.faculty);
+					//buffer.append("Faculty"+commonDetails.faculty);
 				//	buffer.append("Section"+commonDetails.section);
 				//	buffer.append("Semester"+commonDetails.semester);
-					buffer.append("Subject"+commonDetails.subject);
+					//buffer.append("Subject"+commonDetails.subject);
 
 					if (isMarksheet) {
 						for (String subj : student.getSubjects().keySet()) {
@@ -35,7 +35,7 @@ public class SMSSender {
 						buffer.append(",Total presents=" + student.getPresents());
 						buffer.append(",Total absents=" + student.getAbsents());
 						buffer.append(",Warning Count=" + student.getWarningCount());
-						buffer.append(",Attendance Parcentage=" + student.getAttendancePercentage() + "%");
+						buffer.append(",Attendance Percentage=" + student.getAttendancePercentage() + "%");
 						if (student.getAttendancePercentage() < Integer.parseInt(Utils.getvalue("attendance_percantage"))) {
 							isSend = true;
 						}

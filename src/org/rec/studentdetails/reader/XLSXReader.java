@@ -14,12 +14,12 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 public class XLSXReader {
-	public List read(String fileName) throws Exception {
+	public List<List<String>> read(String fileName) throws Exception {
 		InputStream ExcelFileToRead = new FileInputStream(fileName);
 		XSSFWorkbook wb = new XSSFWorkbook(ExcelFileToRead);
 		XSSFSheet sheet = wb.getSheetAt(0);
 		XSSFRow row;
-		Iterator rows = sheet.rowIterator();
+		Iterator<?> rows = sheet.rowIterator();
 		List<List<String>> students = new ArrayList<>();
 		while (rows.hasNext()) {
 			row = (XSSFRow) rows.next();

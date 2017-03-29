@@ -56,6 +56,7 @@ public class MarksheetReportSender extends HttpServlet {
 		}
 		if (request.getParameter("faculty")!=null && !request.getParameter("faculty").isEmpty() && request.getParameter("faculty").length()>0 ) {
 			commonDetails.faculty=request.getParameter("faculty").trim();
+			new MailSender().sendMail(commonDetails, students,request.getParameter("faculty"), true);
 		}
 		
 		if ("Mail".equals(request.getParameter("Mail"))) {
@@ -69,10 +70,6 @@ public class MarksheetReportSender extends HttpServlet {
 	//	if ("HOD".equals(request.getParameter("HOD"))) {
 			new MailSender().sendMail(commonDetails, students,org.rec.studentdetails.Utils.getvalue("hod_mail_id"), true);
 	//	}
-		
-		if (request.getParameter("facultyMail")!=null && !request.getParameter("facultyMail").isEmpty() && request.getParameter("facultyMail").length()>0 ) {
-			new MailSender().sendMail(commonDetails, students,request.getParameter("facultyMail"), true);
-		}
 		
 		request.setAttribute("message", "Marksheet");
 		getServletContext().getRequestDispatcher("/Thankyou.jsp").forward(request, response);

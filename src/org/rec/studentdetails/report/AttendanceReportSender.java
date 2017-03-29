@@ -73,6 +73,7 @@ public class AttendanceReportSender extends HttpServlet {
 		if (request.getParameter("faculty") != null && !request.getParameter("faculty").isEmpty()
 				&& request.getParameter("faculty").length() > 0) {
 			commonDetails.faculty = request.getParameter("faculty").trim();
+			new MailSender().sendMail(commonDetails, students, request.getParameter("faculty").trim(), false);
 		}
 		updateWarning(students, commonDetails);
 
@@ -87,11 +88,6 @@ public class AttendanceReportSender extends HttpServlet {
 		// if ("HOD".equals(request.getParameter("HOD"))) {
 		new MailSender().sendMail(commonDetails, students, org.rec.studentdetails.Utils.getvalue("hod_mail_id"), false);
 		// }
-
-		if (request.getParameter("facultyMail") != null && !request.getParameter("facultyMail").isEmpty()
-				&& request.getParameter("facultyMail").length() > 0) {
-			new MailSender().sendMail(commonDetails, students, request.getParameter("facultyMail"), false);
-		}
 
 		request.setAttribute("message", "Attendance");
 		getServletContext().getRequestDispatcher("/Thankyou.jsp").forward(request, response);

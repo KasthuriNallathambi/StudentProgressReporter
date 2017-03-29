@@ -92,7 +92,18 @@ h2 {
 </style>
 </head>
 <body>
-	<form action="AttendanceReportSender" method="get">
+	<script type="text/javascript">
+		function checkInternet() {
+			if (!navigator.onLine) {
+				alert('Please check your internet connection!');
+			} else {
+				document.getElementById("Button").disabled = true;
+				document.getElementById("myForm").submit();
+			}
+		}
+	</script>
+
+	<form id="myForm" action="AttendanceReportSender" method="get">
 		<%
 			String var = "pertg";
 			request.setAttribute("pertg", Utils.getvalue("attendance_percantage"));
@@ -100,8 +111,8 @@ h2 {
 		<table align="center" width="100%">
 			<tr>
 				<td>
-					<table border="1" 
-						style="font-family: Georgia, Garamond, Serif; color: white;display: block; height: 450px; overflow-y: auto">
+					<table border="1"
+						style="font-family: Georgia, Garamond, Serif; color: white; display: block; height: 450px; overflow-y: auto">
 						<tr>
 							<td>Name</td>
 							<td>Roll No</td>
@@ -128,23 +139,21 @@ h2 {
 					</table>
 				</td>
 
-				<td  style="vertical-align: top;  text-align: left; " >
+				<td style="vertical-align: top; text-align: left;">
 					<div>
 						<label>Enter the Details</label>
 						<!--  Department <input type="text" name="department" value=""> <br>-->
-						<label>Year</label> <input type="text" name="year" value=""> <br> 
-						<label>Semester</label> <input type="text"	name="semester" value=""> <br> 
-						<label>Slot</label> <input type="text"	name="slot" value=""> <br> 
-							<label>Section</label>
+						<label>Year</label> <input type="text" name="year" value="">
+						<br> <label>Semester</label> <input type="text"
+							name="semester" value=""> <br> <label>Slot</label> <input
+							type="text" name="slot" value=""> <br> <label>Section</label>
 						<input type="text" name="section" value=""> <br> <label>SMS</label>
-						<input type="checkbox" name="SMS"value="SMS"> <br> 
-						<label >Mail</label>
+						<input type="checkbox" name="SMS" value="SMS"> <br> <label>Mail</label>
 						<input type="checkbox" name="Mail" value="Mail"> <br>
 						<!-- Mail To	HOD<input type="checkbox" name="HOD" value="HOD"> <br> -->
-						<label >Faculty Mail</label> <input
-							type="text" name="faculty" value="kasthudheiva@gmail.com">
-						<br>
-						<button type="submit">Submit</button>
+						<label>Faculty Mail</label> <input type="text" name="faculty"
+							value="kasthudheiva@gmail.com"> <br>
+						<button type="button" id="Button" onclick="checkInternet()">Submit</button>
 					</div>
 				<td>
 			</tr>

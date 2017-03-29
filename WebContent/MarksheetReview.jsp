@@ -92,8 +92,17 @@ h2 {
 
 </head>
 <body>
-
-	<form action="MarksheetReportSender" method="get">
+	<script type="text/javascript">
+		function checkInternet() {
+			if (!navigator.onLine) {
+				alert('Please check your internet connection!');
+			} else {
+				document.getElementById("Button").disabled = true;
+				document.getElementById("myForm").submit();
+			}
+		}
+	</script>
+	<form id="myForm" action="MarksheetReportSender" method="get">
 
 		<%
 			String var = "pertg";
@@ -150,7 +159,7 @@ h2 {
 						<label>Faculty Mail</label> <input
 							type="text" name="faculty" value="kasthudheiva@gmail.com">
 						<br>
-						<button type="submit">Sumbit</button>
+						<button id="Button" onclick="checkInternet()">Submit</button>
 					</div>
 				<td>
 			</tr>

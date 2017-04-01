@@ -35,9 +35,9 @@ public class MailSender {
 	}
 	
 	public void sendMails(CommonDetails commonDetails, List<Student> students, boolean ismarksheet) {
-		boolean isSend = false;
 		
 		for (Student student : students) {
+			boolean isSend = false;
 			try {
 				Message message = new MimeMessage(session);
 				message.setFrom(new InternetAddress(Utils.getvalue("email_username")));
@@ -46,17 +46,16 @@ public class MailSender {
 				
 				if (ismarksheet) {
 					StringBuffer buffer = new StringBuffer();
-					buffer.append("Dear Parent, Please fine your son mark details below\n\n\n");
+					buffer.append("Dear Parent, Please find your ward mark details below\n\n\n");
 				//	buffer.append("department : "+commonDetails.department);
-					buffer.append("\nFaculty : "+commonDetails.faculty);
+				//	buffer.append("\nFaculty : "+commonDetails.faculty);
 				//	buffer.append("\nSection : "+commonDetails.section);
 				//	buffer.append("\nSemester : "+commonDetails.semester);
-					buffer.append("\nSubject : "+commonDetails.subject);
+				//	buffer.append("\nSubject : "+commonDetails.subject);
 
 					for (String subj : student.getSubjects().keySet()) {
-					//	buffer.append(subj + " : " + student.getSubjects().get(subj) + "\n");
+						buffer.append(subj + " : " + student.getSubjects().get(subj) + "\n");
 						if(Integer.parseInt(student.getSubjects().get(subj)) < Integer.parseInt(Utils.getvalue("passmark"))){
-							buffer.append(subj + " : " + student.getSubjects().get(subj) + "\n");
 							isSend = true;
 							
 						}
@@ -78,8 +77,10 @@ public class MailSender {
 							+ " \nThanks\n REC Thandalam");*/
 				}
 
-				if(isSend)
+				if(isSend) {
+					System.out.println("mail send to : - "+student.getMailId());					
 					Transport.send(message);
+				}
 			} catch (MessagingException e) {
 				throw new RuntimeException(e);
 			}
@@ -94,7 +95,6 @@ public class MailSender {
 			message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(mailId));
 			message.setSubject(Utils.getvalue("email_subject"));
 			StringBuffer buffer = new StringBuffer();
-			StringBuffer buffer1 = new StringBuffer();
 			buffer.append("<html><table border=\"1\">");
 			for (Student student : students) {
 				if (isMarkSheet) {
@@ -111,6 +111,7 @@ public class MailSender {
 					}
 
 					boolean isSend = false;
+					StringBuffer buffer1 = new StringBuffer();
 					buffer1.append("<tr>");
 					buffer1.append("<td>" + student.getName() + "</td>");
 					buffer1.append("<td>" + student.getRollNo() + "</td>");
@@ -149,10 +150,15 @@ public class MailSender {
 			}
 			buffer.append("</table></html>");
 //			buffer.append("Department : "+commonDetails.department);
-			buffer.append("\nSlot:"+commonDetails.slot);
+			if (!isMarkSheet) 
+				buffer.append("\nSlot:"+commonDetails.slot);
 			buffer.append("\nYear : "+commonDetails.year);
 			buffer.append("\nSemester : "+commonDetails.semester);
+			buffer.append("\nSeection : "+commonDetails.section);
 			message.setContent(buffer.toString(), "text/html; charset=utf-8");
+			
+			System.out.println("mail send to : - "+mailId);
+			
 			Transport.send(message);
 		} catch (MessagingException e) {
 			throw new RuntimeException(e);

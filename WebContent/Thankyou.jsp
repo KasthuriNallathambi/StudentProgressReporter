@@ -18,7 +18,7 @@ body{
 	  margin-left :490px;
 	  margin-right :390px;
       background: #000;
-      padding: 2em 1em;
+      padding: .5em 1em;
       font-family: helvetica, sans-serif;
 	  display: -webkit-box;
   display: -moz-box;
@@ -49,12 +49,12 @@ margin-right :15px;
 	
     background-color:  black;
 	width: 300px;
-	height: 150px;
+	height: 250px;
     border:black ;
-    padding: 25px;
+    padding: 10px;
     margin: 5px;
 	 max-width: 500px;
-  width: 80%;
+  width: 70%;
 	border-radius: 5px;
      }
 h2{
@@ -77,13 +77,16 @@ h2{
   
   cursor: pointer;
 }
+
  </style>
 </head>
 <body background="recnew.jpg" style="background-size:cover ;margin-left: 70px;margin-top:90px; background-repeat : no-repeat">
+
 <h2>&nbsp;&nbsp;&nbsp;Thanks for using automated ${requestScope.message} reporter</h2>
+
 <form>
 <div>
-
+<a href="select.html"><input type="button" value="Back To Upload"></a>
 <a href="index.html" ><input type="button" value="Logout"></a>
 </div>
 </form>
